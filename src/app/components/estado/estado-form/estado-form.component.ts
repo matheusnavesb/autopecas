@@ -1,12 +1,46 @@
+import { NgIf } from '@angular/common';
 import { Component } from '@angular/core';
+import { FormBuilder, FormGroup, ReactiveFormsModule, Validators } from '@angular/forms';
+import { Router } from '@angular/router';
+import { MatButtonModule } from '@angular/material/button';
+import { MatFormFieldModule } from '@angular/material/form-field';
+import { MatInputModule} from '@angular/material/input';
+import { EstadoService } from '../../../services/estado.service';
+
 
 @Component({
   selector: 'app-estado-form',
   standalone: true,
-  imports: [],
+  imports: [NgIf, ReactiveFormsModule, MatFormFieldModule, MatInputModule, MatButtonModule],
   templateUrl: './estado-form.component.html',
   styleUrl: './estado-form.component.css'
 })
+
 export class EstadoFormComponent {
-  exemploEstado: string = 'Tocantins';
+  formGroup: FormGroup;
+
+  constructor(private formBuilder: FormBuilder,
+              private EstadoService: EstadoService,
+              private router: Router){
+      this.formGroup = formBuilder.group({
+        nome:['', Validators.required],
+        sigla:['', Validators.required]
+      });
+    }
+
+
+    onSubmit(){
+      if(this.formGroup.valid){
+        const novoEstado = this.formGroup.value;
+        this.EstadoService.salvar(novoEstado).subscribe({
+          next: (estadoCadastrado) => {
+              this.router.navigateByUrl('/estados');
+          },
+          error: (err) => {
+            console.log('Erro ao salvar' + JSON.stringify(err));
+          },
+        });
+      }
+    }
 }
+

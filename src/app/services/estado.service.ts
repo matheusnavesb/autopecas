@@ -15,4 +15,9 @@ export class EstadoService {
   getEstados(): Observable<Estado[]> {
     return this.httpClient.get<Estado[]>(this.baseUrl)
   }
+
+
+  salvar(estado: Estado): Observable<Estado>{
+    return this.httpClient.post<Estado>(this.baseUrl, estado);
+  }
 }
