@@ -20,7 +20,7 @@ export class EstadoFormComponent {
   formGroup: FormGroup;
 
   constructor(private formBuilder: FormBuilder,
-              private EstadoService: EstadoService,
+              private estadoService: EstadoService,
               private router: Router){
       this.formGroup = formBuilder.group({
         nome:['', Validators.required],
@@ -32,7 +32,7 @@ export class EstadoFormComponent {
     onSubmit(){
       if(this.formGroup.valid){
         const novoEstado = this.formGroup.value;
-        this.EstadoService.salvar(novoEstado).subscribe({
+        this.estadoService.salvar(novoEstado).subscribe({
           next: (estadoCadastrado) => {
               this.router.navigateByUrl('/estados');
           },
