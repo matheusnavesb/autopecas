@@ -6,12 +6,14 @@ import { MatButtonModule } from '@angular/material/button';
 import { MatFormFieldModule } from '@angular/material/form-field';
 import { MatInputModule} from '@angular/material/input';
 import { EstadoService } from '../../../services/estado.service';
+import {MatCardModule} from '@angular/material/card';
+import { MatToolbarModule } from '@angular/material/toolbar';
 
 
 @Component({
   selector: 'app-estado-form',
   standalone: true,
-  imports: [NgIf, ReactiveFormsModule, MatFormFieldModule, MatInputModule, MatButtonModule],
+  imports: [NgIf, ReactiveFormsModule, MatFormFieldModule, MatInputModule, MatButtonModule, MatCardModule, MatToolbarModule],
   templateUrl: './estado-form.component.html',
   styleUrl: './estado-form.component.css'
 })
@@ -32,7 +34,7 @@ export class EstadoFormComponent {
     onSubmit(){
       if(this.formGroup.valid){
         const novoEstado = this.formGroup.value;
-        this.estadoService.salvar(novoEstado).subscribe({
+        this.estadoService.insert(novoEstado).subscribe({
           next: (estadoCadastrado) => {
               this.router.navigateByUrl('/estados');
           },
@@ -41,6 +43,14 @@ export class EstadoFormComponent {
           },
         });
       }
+    }
+
+    salvar(){
+
+    }
+
+    excluir(){
+
     }
 }
 
