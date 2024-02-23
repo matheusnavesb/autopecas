@@ -7,7 +7,6 @@ import { Observable } from 'rxjs';
   providedIn: 'root'
 })
 export class EstadoService {
-
   private baseUrl = 'http://localhost:8080/estados';
 
   constructor(private httpClient: HttpClient) { }
@@ -21,7 +20,7 @@ export class EstadoService {
   }
 
   insert(estado: Estado): Observable<Estado>{
-    return this.httpClient.post<Estado>(`${this.baseUrl}/${estado.id}`, estado);
+    return this.httpClient.post<Estado>(this.baseUrl, estado);
   }
 
   update(estado: Estado): Observable<Estado>{

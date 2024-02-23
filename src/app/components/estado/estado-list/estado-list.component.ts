@@ -11,7 +11,8 @@ import { RouterModule } from '@angular/router';
 @Component({
   selector: 'app-estado-list',
   standalone: true,
-  imports: [NgFor, MatTableModule, MatToolbarModule, MatIconModule, MatButtonModule, RouterModule],
+  imports: [NgFor, MatTableModule, MatToolbarModule, MatIconModule,
+     MatButtonModule, RouterModule],
   templateUrl: './estado-list.component.html',
   styleUrl: './estado-list.component.css'
 })
