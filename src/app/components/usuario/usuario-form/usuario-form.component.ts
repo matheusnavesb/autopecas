@@ -1,45 +1,81 @@
+import { Usuario } from './../../../models/usuario.model';
 import { NgIf } from '@angular/common';
 import { Component } from '@angular/core';
 import { FormGroup, FormBuilder, Validators, ReactiveFormsModule } from '@angular/forms';
-import { Router } from '@angular/router';
+import { ActivatedRoute, Router, RouterModule } from '@angular/router';
 import { MatButtonModule } from '@angular/material/button';
 import { MatFormFieldModule } from '@angular/material/form-field';
 import { MatInputModule } from '@angular/material/input';
 import { UsuarioService } from '../../../services/usuario.service';
+import { MatCardModule } from '@angular/material/card';
+import { MatToolbarModule } from '@angular/material/toolbar';
 
 
 @Component({
   selector: 'app-usuario-form',
   standalone: true,
-  imports: [NgIf, ReactiveFormsModule, MatFormFieldModule, MatInputModule, MatButtonModule],
+  imports: [NgIf, ReactiveFormsModule, MatFormFieldModule,
+    MatInputModule, MatButtonModule, MatCardModule, MatToolbarModule, RouterModule],
   templateUrl: './usuario-form.component.html',
   styleUrl: './usuario-form.component.css'
 })
 
 export class UsuarioFormComponent {
-  
+
   formGroup: FormGroup;
 
   constructor(private formBuilder: FormBuilder,
               private usuarioService: UsuarioService,
-              private router: Router) {
+              private router: Router,
+              private activatedRoute: ActivatedRoute) {
+
+              const usuario: Usuario = activatedRoute.snapshot.data['usuario'];
+
       this.formGroup = formBuilder.group({
-        nome:['', Validators.required],
-        email:['', Validators.required]
+        id: [(usuario && usuario.id) ? usuario.id : null],
+        nome: [(usuario && usuario.nome) ? usuario.nome : '', Validators.required],
+        email: [(usuario && usuario.email) ? usuario.email : '', Validators.required]
     });
   }
 
-  onSubmit() {
+  salvarUsuario() {
     if (this.formGroup.valid) {
-      const novoUsuario = this.formGroup.value;
-      this.usuarioService.salvar(novoUsuario).subscribe({
-        next: (usuarioCadastrado) => {
-          this.router.navigateByUrl('/usuarios');
-      },
-        error:(err) => {
-          console.log('Erro ao salvar usuario' + JSON.stringify(err));
-        }
-      });
+      const usuario = this.formGroup.value;
+      if (usuario.id ==null) {
+        this.usuarioService.insert(usuario).subscribe({
+          next: (usuarioCadastrado) => {
+            this.router.navigateByUrl('/usuarios');
+          },
+          error: (err) => {
+            console.log('Erro ao Incluir' + JSON.stringify(err));
+          }
+        });
+      } else {
+        this.usuarioService.update(usuario).subscribe({
+          next: (usuarioAlterado) => {
+            this.router.navigateByUrl('/usuarios');
+          },
+          error: (err) => {
+            console.log('Erro ao Editar' + JSON.stringify(err));
+          }
+        });
+      }
+    }
+  }
+
+  excluirUsuario() {
+    if (this.formGroup.valid) {
+      const usuario = this.formGroup.value;
+      if (usuario.id != null) {
+        this.usuarioService.delete(usuario).subscribe({
+          next: () => {
+            this.router.navigateByUrl('/usuarios');
+          },
+          error: (err) => {
+            console.log('Erro ao Excluir' + JSON.stringify(err));
+          }
+        });
+      }
     }
   }
 }

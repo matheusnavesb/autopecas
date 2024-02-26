@@ -1,3 +1,4 @@
+import { usuarioResolver } from './components/estado/resolver/usuario-resolver';
 import { Routes } from '@angular/router';
 import { EstadoListComponent } from './components/estado/estado-list/estado-list.component';
 import { EstadoFormComponent } from './components/estado/estado-form/estado-form.component';
@@ -11,5 +12,6 @@ export const routes: Routes = [
     { path: 'estados/edit/:id', component: EstadoFormComponent, resolve: {estado: estadoResolver}},
 
     { path: 'usuarios', component: UsuarioListComponent, title: 'Lista de Usuarios'},
-    { path: 'usuarios/new', component: UsuarioFormComponent, title: 'Lista de Usuarios'}
+    { path: 'usuarios/new', component: UsuarioFormComponent, title: 'Novo Usuario'},
+    { path: 'usuarios/edit/:id', component: UsuarioFormComponent, resolve: {usuarios: usuarioResolver}}
 ];
