@@ -1,4 +1,4 @@
-import { usuarioResolver } from './components/estado/resolver/usuario-resolver';
+import { usuarioResolver } from './components/usuario/resolver/usuario-resolver';
 import { Routes } from '@angular/router';
 import { EstadoListComponent } from './components/estado/estado-list/estado-list.component';
 import { EstadoFormComponent } from './components/estado/estado-form/estado-form.component';
