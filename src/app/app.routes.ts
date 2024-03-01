@@ -5,11 +5,18 @@ import { EstadoFormComponent } from './components/estado/estado-form/estado-form
 import { UsuarioListComponent } from './components/usuario/usuario-list/usuario-list.component';
 import { UsuarioFormComponent } from './components/usuario/usuario-form/usuario-form.component';
 import { estadoResolver } from './components/estado/resolver/estado-resolver';
+import { MunicipioListComponent } from './components/municipio/municipio-list/municipio-list.component';
+import { MunicipioFormComponent } from './components/municipio/municipio-form/municipio-form.component';
+import { municipioResolver } from './components/municipio/resolver/municipio-resolver';
 
 export const routes: Routes = [
     { path: 'estados', component: EstadoListComponent, title: 'Lista de Estados'},
     { path: 'estados/new', component: EstadoFormComponent, title: 'Novo Estado'},
     { path: 'estados/edit/:id', component: EstadoFormComponent, resolve: {estado: estadoResolver}},
+
+    { path: 'municipios', component: MunicipioListComponent, title: 'Lista de Municipios'},
+    { path: 'municipios/new', component: MunicipioFormComponent, title: 'Novo Municipio'},
+    { path: 'municipios/edit/:id', component: MunicipioFormComponent, resolve: {municipio: municipioResolver}},
 
     { path: 'usuarios', component: UsuarioListComponent, title: 'Lista de Usuarios'},
     { path: 'usuarios/new', component: UsuarioFormComponent, title: 'Novo Usuario'},
