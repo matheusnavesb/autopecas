@@ -16,8 +16,9 @@ import { MatSelectModule } from '@angular/material/select';
 @Component({
   selector: 'app-municipio-form',
   standalone: true,
-  imports: [NgIf, ReactiveFormsModule, MatFormFieldModule,MatSelectModule,
-    MatInputModule, MatButtonModule, MatCardModule, MatToolbarModule, RouterModule],
+  imports: [NgIf, ReactiveFormsModule, MatFormFieldModule,
+    MatSelectModule, MatInputModule, MatButtonModule,
+    MatCardModule, MatToolbarModule, RouterModule],
   templateUrl: './municipio-form.component.html',
   styleUrl: './municipio-form.component.css'
 })
@@ -33,23 +34,23 @@ export class MunicipioFormComponent implements OnInit {
     private router: Router,
     private activatedRoute: ActivatedRoute) {
 
-      this.formGroup = formBuilder.group({
-        id: [null],
-        nome: ['', Validators.required],
-        estado: [null]
-      });
-
-    }
+    this.formGroup = formBuilder.group({
+      id: [null],
+      nome: ['', Validators.required],
+      estado: [null]
+    });
+  }
   ngOnInit(): void {
-    this.estadoService.findAll().subscribe(data =>{
+    this.estadoService.findAll().subscribe(data => {
       this.estados = data;
       this.initializeForm();
-    })
+    });
   }
 
   initializeForm(): void {
     const municipio: Municipio = this.activatedRoute.snapshot.data['municipio'];
 
+    // selecionando o estado
     const estado = this.estados.find(estado => estado.id === (municipio?.estado?.id || null));
 
     this.formGroup = this.formBuilder.group({
