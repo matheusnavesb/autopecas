@@ -6,19 +6,25 @@
           <mat-form-field appearance="fill" class="full-width-input">
             <mat-label>Nome</mat-label>
             <input matInput type="text" formControlName="nome">
-            <mat-error *ngIf="formGroup.get('nome')
-                            && formGroup.get('nome')?.invalid
-                            && formGroup.get('nome')?.touched">
-                O nome é obrigatorio.
+            <mat-error *ngIf="formGroup.get('nome')?.errors
+                           && formGroup.get('nome')?.touched">
+                           @if (formGroup.get('nome')?.errors?.['required']){
+                            <span>O nome deve ser informado</span>
+                           }
+                           @if (formGroup.get('nome')?.errors?.['minlength']){
+                            <span>O nome deve possuir ao menos 4 caracteres</span>
+                          }
+                <!-- O nome é obrigatorio. -->
             </mat-error>
           </mat-form-field>
           <mat-form-field appearance="outline" class="full-width-input">
             <mat-label>Sigla</mat-label>
             <input matInput type="text" formControlName="sigla">
             <mat-error *ngIf="formGroup.get('sigla')
-                            && formGroup.get('sigla')?.invalid
-                            && formGroup.get('sigla')?.touched">
-                A sigla é obrigatoria.
+                           && formGroup.get('sigla')?.errors
+                           && formGroup.get('sigla')?.touched">
+                           {{getErrorMessage('sigla', formGroup.get('sigla')?.errors)}}
+                <!-- A sigla é obrigatoria. -->
             </mat-error>
           </mat-form-field>
 
@@ -27,8 +33,8 @@
       <mat-card-actions>
         <button mat-raised-button
                 color="primary"
-                (click)="salvar()"
-                [disabled]="formGroup.invalid">
+                (click)="salvar()">
+                <!-- [disabled]="formGroup.invalid"> -->
             Salvar
         </button>
         <button mat-raised-button
