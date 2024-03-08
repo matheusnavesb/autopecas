@@ -25,23 +25,23 @@ export class UsuarioFormComponent {
   formGroup: FormGroup;
 
   constructor(private formBuilder: FormBuilder,
-              private usuarioService: UsuarioService,
-              private router: Router,
-              private activatedRoute: ActivatedRoute) {
+    private usuarioService: UsuarioService,
+    private router: Router,
+    private activatedRoute: ActivatedRoute) {
 
-              const usuario: Usuario = activatedRoute.snapshot.data['usuario'];
+    const usuario: Usuario = activatedRoute.snapshot.data['usuario'];
 
-      this.formGroup = formBuilder.group({
-        id: [(usuario && usuario.id) ? usuario.id : null],
-        nome: [(usuario && usuario.nome) ? usuario.nome : '', Validators.required],
-        email: [(usuario && usuario.email) ? usuario.email : '', Validators.required]
+    this.formGroup = formBuilder.group({
+      id: [(usuario && usuario.id) ? usuario.id : null],
+      nome: [(usuario && usuario.nome) ? usuario.nome : '', Validators.required],
+      email: [(usuario && usuario.email) ? usuario.email : '', Validators.required]
     });
   }
 
   salvarUsuario() {
     if (this.formGroup.valid) {
       const usuario = this.formGroup.value;
-      if (usuario.id ==null) {
+      if (usuario.id == null) {
         this.usuarioService.insert(usuario).subscribe({
           next: (usuarioCadastrado) => {
             this.router.navigateByUrl('/usuarios');
