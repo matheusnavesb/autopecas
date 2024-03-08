@@ -6,7 +6,7 @@ import { MatTableModule } from '@angular/material/table';
 import {MatToolbarModule} from '@angular/material/toolbar';
 import {MatIconModule} from '@angular/material/icon';
 import {MatButtonModule} from '@angular/material/button';
-import { RouterModule } from '@angular/router';
+import { Router, RouterModule } from '@angular/router';
 
 @Component({
   selector: 'app-estado-list',
@@ -21,7 +21,7 @@ export class EstadoListComponent implements OnInit {
   displayedColumns: string[] = ['id', 'nome', 'sigla', 'acao'];
   estados: Estado[] = [];
 
-  constructor(private estadoService: EstadoService){}
+  constructor(private estadoService: EstadoService, private router: Router){}
 
   ngOnInit(): void {
       this.estadoService.findAll().subscribe(data => {
@@ -29,4 +29,15 @@ export class EstadoListComponent implements OnInit {
       });
   }
 
+  excluir(estado: Estado) {
+    this.estadoService.delete(estado).subscribe({
+      next: () => {
+        this.router.navigateByUrl('/estados');
+        this.ngOnInit();
+      },
+      error: (err) => {
+        console.log('Erro ao Excluir' + JSON.stringify(err));
+      },
+    });
+  }
 }

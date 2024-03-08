@@ -6,7 +6,7 @@ import { MatTableModule } from '@angular/material/table';
 import { MatToolbarModule } from '@angular/material/toolbar';
 import { MatIconModule } from '@angular/material/icon';
 import { MatButtonModule } from '@angular/material/button';
-import { RouterModule } from '@angular/router';
+import { Router, RouterModule } from '@angular/router';
 
 @Component({
   selector: 'app-municipio-list',
@@ -20,11 +20,23 @@ export class MunicipioListComponent implements OnInit {
   displayedColumns: string[] = ['id', 'nome', 'estado', 'acao'];
   municipios: Municipio[] = [];
 
-  constructor(private municipioService: MunicipioService) { }
+  constructor(private municipioService: MunicipioService, private router: Router) { }
 
   ngOnInit(): void {
     this.municipioService.findAll().subscribe(data => {
       this.municipios = data;
+    });
+  }
+
+  excluir(municipio: Municipio) {
+    this.municipioService.delete(municipio).subscribe({
+      next: () => {
+        this.router.navigateByUrl('/municipios');
+        this.ngOnInit();
+      },
+      error: (err) => {
+        console.log('Erro ao Excluir' + JSON.stringify(err));
+      },
     });
   }
 }
