@@ -18,7 +18,7 @@ import { Router, RouterModule } from '@angular/router';
 })
 export class UsuarioListComponent implements OnInit {
 
-  displayedColumns: string[] = ['id', 'nome', 'email', 'idade', 'acao'];
+  displayedColumns: string[] = ['id', 'nome', 'email', 'acao'];
   usuarios: Usuario[] = [];
 
   constructor(private usuarioService: UsuarioService, private router: Router) {

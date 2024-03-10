@@ -22,7 +22,7 @@
                     </mat-error>
                 </mat-form-field>
 
-                <mat-form-field appearance="fill" class="full-width-input">
+                <!-- <mat-form-field appearance="fill" class="full-width-input">
                   <mat-label>Idade</mat-label>
                   <input matInput type="text" formControlName="idade">
                   <mat-error *ngIf="formGroup.get('idade')
@@ -30,7 +30,7 @@
                                  && formGroup.get('idade')?.touched">
                       Idade é obrigatorio.
                   </mat-error>
-              </mat-form-field>
+              </mat-form-field> -->
 
               <mat-form-field appearance="fill" class="full-width-input">
                 <mat-label>Senha</mat-label>
@@ -38,7 +38,7 @@
                 <mat-error *ngIf="formGroup.get('senha')
                                && formGroup.get('senha')?.invalid
                                && formGroup.get('senha')?.touched">
-                    Escolha sua senha preferida.
+                    Escolha sua senha preferida de 8 caracteres.
                 </mat-error>
             </mat-form-field>
             </form>
