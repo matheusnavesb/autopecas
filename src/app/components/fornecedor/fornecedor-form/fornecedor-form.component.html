@@ -1,0 +1,69 @@
+<mat-toolbar color="primary" class="toolbar-title">Cadastro de Fornecedor</mat-toolbar>
+<div class="form-container">
+    <mat-card>
+      <mat-card-content>
+        <form [formGroup]="formGroup">
+          <mat-form-field appearance="fill" class="full-width-input">
+            <mat-label>Nome</mat-label>
+            <input matInput type="text" formControlName="nome">
+            <mat-error *ngIf="formGroup.get('nome')?.errors
+                           && formGroup.get('nome')?.touched">
+                           @if (formGroup.get('nome')?.errors?.['required']){
+                            <span>O nome deve ser informado</span>
+                           }
+                           @if (formGroup.get('nome')?.errors?.['minlength']){
+                            <span>O nome deve possuir no máximo 60 caracteres</span>
+                          }
+                <!-- O nome é obrigatorio. -->
+            </mat-error>
+          </mat-form-field>
+          <mat-form-field appearance="outline" class="full-width-input">
+            <mat-label>Cnpj</mat-label>
+            <input matInput type="text" formControlName="cnpj">
+            <mat-error *ngIf="formGroup.get('cnpj')
+                           && formGroup.get('cnpj')?.errors
+                           && formGroup.get('cnpj')?.touched">
+                           {{getErrorMessage('cnpj', formGroup.get('cnpj')?.errors)}}
+                <!-- O cnpj é obrigatorio. -->
+            </mat-error>
+          </mat-form-field>
+
+          <mat-form-field appearance="outline" class="full-width-input">
+            <mat-label>Email</mat-label>
+            <input matInput type="text" formControlName="email">
+            <mat-error *ngIf="formGroup.get('email')
+                           && formGroup.get('email')?.errors
+                           && formGroup.get('email')?.touched">
+                           {{getErrorMessage('email', formGroup.get('email')?.errors)}}
+                <!-- O email é obrigatorio. -->
+            </mat-error>
+          </mat-form-field>
+
+        </form>
+      </mat-card-content>
+      <mat-card-actions>
+        <button mat-raised-button
+                color="primary"
+                (click)="salvar()">
+                <!-- [disabled]="formGroup.invalid"> -->
+            Salvar
+        </button>
+        <button mat-raised-button
+                *ngIf="formGroup.get('id')?.value"
+                color="warn"
+                (click)="excluir()"
+                [disabled]="formGroup.invalid">
+            Excluir
+        </button>
+        <button mat-raised-button
+                routerLink="/fornecedores">
+            Cancelar
+        </button>
+
+      </mat-card-actions>
+    </mat-card>
+</div>
+
+
+
+

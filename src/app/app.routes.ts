@@ -8,6 +8,8 @@ import { estadoResolver } from './components/estado/resolver/estado-resolver';
 import { MunicipioListComponent } from './components/municipio/municipio-list/municipio-list.component';
 import { MunicipioFormComponent } from './components/municipio/municipio-form/municipio-form.component';
 import { municipioResolver } from './components/municipio/resolver/municipio-resolver';
+import { FornecedorListComponent } from './components/fornecedor/fornecedor-list/fornecedor-list.component';
+import { FornecedorFormComponent } from './components/fornecedor/fornecedor-form/fornecedor-form.component';
 
 export const routes: Routes = [
     { path: 'estados', component: EstadoListComponent, title: 'Lista de Estados'},
@@ -20,5 +22,8 @@ export const routes: Routes = [
 
     { path: 'usuarios', component: UsuarioListComponent, title: 'Lista de Usuarios'},
     { path: 'usuarios/new', component: UsuarioFormComponent, title: 'Novo Usuario'},
-    { path: 'usuarios/edit/:id', component: UsuarioFormComponent, resolve: {usuarios: usuarioResolver}}
+    { path: 'usuarios/edit/:id', component: UsuarioFormComponent, resolve: {usuarios: usuarioResolver}},
+
+    { path: 'fornecedores', component: FornecedorListComponent, title: 'Lista de Fornecedores'},
+    { path: 'fornecedores/new', component: FornecedorFormComponent, title: 'Novo Fornecedor'},
 ];

@@ -27,6 +27,11 @@
       <td mat-cell *matCellDef="let element"> {{element.email}} </td>
     </ng-container>
 
+    <ng-container matColumnDef="idade">
+      <th mat-header-cell *matHeaderCellDef> Idade </th>
+      <td mat-cell *matCellDef="let element"> {{element.idade}} </td>
+    </ng-container>
+
     <!-- Acao Column -->
     <ng-container matColumnDef="acao">
       <th mat-header-cell *matHeaderCellDef> Ação </th>

@@ -34,7 +34,9 @@ export class UsuarioFormComponent {
     this.formGroup = formBuilder.group({
       id: [(usuario && usuario.id) ? usuario.id : null],
       nome: [(usuario && usuario.nome) ? usuario.nome : '', Validators.required],
-      email: [(usuario && usuario.email) ? usuario.email : '', Validators.required]
+      email: [(usuario && usuario.email) ? usuario.email : '', Validators.required],
+      idade: [(usuario && usuario.idade) ? usuario.idade : '', Validators.required],
+      senha: [(usuario && usuario.senha) ? usuario.senha : '', Validators.required]
     });
   }
 
