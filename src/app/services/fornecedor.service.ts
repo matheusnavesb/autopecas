@@ -25,7 +25,6 @@ export class FornecedorService {
       cnpj: fornecedor.cnpj,
       email: fornecedor.email,
 
-      //idEstado: fornecedor.estado.id,
     }
     return this.httpClient.post<Fornecedor>(this.baseUrl, data);
   }
@@ -35,7 +34,6 @@ export class FornecedorService {
       nome: fornecedor.nome,
       email: fornecedor.email,
 
-      //idEstado: fornecedor.estado.id,
     }
     return this.httpClient.put<Fornecedor>(`${this.baseUrl}/${fornecedor.id}`, data);
   }
