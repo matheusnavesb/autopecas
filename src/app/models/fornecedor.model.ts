@@ -1,3 +1,5 @@
+import { Localizacao } from "./localizacao.model";
+
 export class Fornecedor {
     id!: number;
     nome!: string;

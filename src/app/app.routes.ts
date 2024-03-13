@@ -10,6 +10,8 @@ import { MunicipioFormComponent } from './components/municipio/municipio-form/mu
 import { municipioResolver } from './components/municipio/resolver/municipio-resolver';
 import { FornecedorListComponent } from './components/fornecedor/fornecedor-list/fornecedor-list.component';
 import { FornecedorFormComponent } from './components/fornecedor/fornecedor-form/fornecedor-form.component';
+import { LocalizacaoListComponent } from './components/localizacao/localizacao-list/localizacao-list.component';
+import { LocalizacaoFormComponent } from './components/localizacao/localizacao-form/localizacao-form.component';
 
 export const routes: Routes = [
     { path: 'estados', component: EstadoListComponent, title: 'Lista de Estados'},
@@ -26,4 +28,7 @@ export const routes: Routes = [
 
     { path: 'fornecedores', component: FornecedorListComponent, title: 'Lista de Fornecedores'},
     { path: 'fornecedores/new', component: FornecedorFormComponent, title: 'Novo Fornecedor'},
+
+    { path: 'localizacoes', component: LocalizacaoListComponent, title: 'Lista de Localizacoes'},
+    { path: 'localizacoes/new', component: LocalizacaoFormComponent, title: 'Nova localizacao'},
 ];

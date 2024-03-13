@@ -1,0 +1,60 @@
+<mat-toolbar color="primary" class="toolbar-title">Cadastro de Localizacao dos Fornecedores</mat-toolbar>
+<div class="form-container">
+  <mat-card>
+    <mat-card-content>
+      <form [formGroup]="formGroup">
+        <mat-form-field appearance="fill" class="full-width-input">
+          <mat-label>Cidade</mat-label>
+          <input matInput type="text" formControlName="cidade">
+          <mat-error *ngIf="formGroup.get('cidade')
+                            && formGroup.get('cidade')?.invalid
+                            && formGroup.get('cidade')?.touched">
+            A cidade é obrigatoria.
+          </mat-error>
+        </mat-form-field>
+
+        <mat-form-field appearance="fill" class="full-width-input">
+          <mat-label>Estado</mat-label>
+          <input matInput type="text" formControlName="estado">
+          <mat-error *ngIf="formGroup.get('estado')
+                            && formGroup.get('estado')?.invalid
+                            && formGroup.get('estado')?.touched">
+            Estado é obrigatório.
+          </mat-error>
+        </mat-form-field>
+
+        <mat-form-field appearance="fill">
+            <mat-label>Fornecedor</mat-label>
+            <mat-select formControlName="fornecedor">
+                @for (fornecedor of fornecedores; track fornecedor.id) {
+                    <mat-option [value]="fornecedor">
+                        {{fornecedor.nome}}
+                    </mat-option>
+                }
+            </mat-select>
+        </mat-form-field>
+
+      </form>
+    </mat-card-content>
+    <mat-card-actions>
+      <button mat-raised-button
+              color="primary"
+              (click)="salvar()"
+              [disabled]="formGroup.invalid">
+        Salvar
+      </button>
+      <button mat-raised-button
+              *ngIf="formGroup.get('id')?.value"
+              color="warn"
+              (click)="excluir()"
+              [disabled]="formGroup.invalid">
+        Excluir
+      </button>
+      <button mat-raised-button
+              routerLink="/localizacoes">
+        Cancelar
+      </button>
+
+    </mat-card-actions>
+  </mat-card>
+</div>
