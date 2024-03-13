@@ -37,7 +37,7 @@ export class LocalizacaoFormComponent implements OnInit {
       id: [null],
       cidade: ['', Validators.required],
       estado: ['', Validators.required],
-      fornecedor: [null]
+      fornecedor: ['', Validators.required]
     });
   }
 
