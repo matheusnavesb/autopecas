@@ -1,4 +1,4 @@
-.toolbar-title{
+/* .toolbar-title{
   flex: 1;
   text-align: center;
 }
@@ -28,4 +28,103 @@ buttom[mat-raised-button]{
 
 button[mat-raised-button]:not(:last-child){
   margin-right: 1rem;
+} */
+
+
+/* Alinhar o título no centro */
+.toolbar-title {
+  flex: 1;
+  text-align: center;
+  justify-content: center;
+}
+
+/* Estilizar os campos de entrada para ocupar toda a largura */
+.full-width-input {
+  width: calc(100% - 24px); /* Subtraindo a margem do preenchimento */
+  margin-bottom: 20px;
+}
+
+/* Limitar a largura do cartão e centralizá-lo na tela */
+mat-card {
+  max-width: 600px; /* Reduzi para 600px para ficar mais equilibrado */
+  margin: 2rem auto;
+}
+
+/* Alinhar os botões de ação à direita */
+mat-card-actions {
+  justify-content: flex-end;
+}
+
+/* Adicionar um espaçamento interno ao contêiner do formulário */
+.form-container {
+  padding: 2rem;
+  
+}
+
+/* Ajustar largura dos botões */
+button[mat-raised-button] {
+  width: 120px;
+}
+
+/* Adicionar margem entre os botões */
+button[mat-raised-button]:not(:last-child) {
+  margin-right: 1rem;
+}
+
+--------------------------------------------------
+
+
+/* Estilizar o título da barra de ferramentas */
+.toolbar-title {
+  font-size: 24px;
+  font-weight: bold;
+  color: #333;
+  padding: 10px;
+  background-color: #f0f0f0;
+  border-radius: 5px;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+}
+
+/* Estilizar os campos de entrada */
+.full-width-input {
+  width: calc(100% - 24px);
+  margin-bottom: 20px;
+  border-radius: 5px;
+  border: 1px solid #ccc;
+  padding: 10px;
+  font-size: 16px;
+  transition: border-color 0.3s ease;
+}
+
+.full-width-input:focus {
+  border-color: #007bff;
+}
+
+/* Estilizar o cartão */
+mat-card {
+  max-width: 600px;
+  margin: 2rem auto;
+  border-radius: 10px;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+}
+
+/* Estilizar os botões */
+button[mat-raised-button] {
+  width: 120px;
+  border-radius: 5px;
+  font-weight: bold;
+  text-transform: uppercase;
+  transition: background-color 0.3s ease, color 0.3s ease;
+}
+
+button[mat-raised-button]:hover {
+  background-color: #007bff;
+  color: #fff;
+}
+
+/* Adicionar um espaçamento interno ao contêiner do formulário */
+.form-container {
+  padding: 2rem;
+  background-color: #f9f9f9;
+  border-radius: 10px;
 }
