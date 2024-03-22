@@ -9,6 +9,7 @@ import { NgIf } from '@angular/common';
 import { MatCardModule } from '@angular/material/card';
 import { MatToolbarModule } from '@angular/material/toolbar';
 import { Estado } from '../../../models/estado.model';
+import { HttpErrorResponse } from '@angular/common/http';
 
 @Component({
   selector: 'app-estado-form',
@@ -37,8 +38,7 @@ export class EstadoFormComponent {
       Validators.minLength(4)])],
       sigla: [(estado && estado.sigla) ? estado.sigla : '',
       Validators.compose([Validators.required,
-      Validators.minLength(2),
-      Validators.maxLength(2)])],
+      Validators.minLength(2)])]
     });
   }
 
@@ -47,25 +47,41 @@ export class EstadoFormComponent {
     this.formGroup.markAllAsTouched();
     if (this.formGroup.valid) {
       const estado = this.formGroup.value;
-      if (estado.id == null) {
-        this.estadoService.insert(estado).subscribe({
-          next: (estadoCadastrado) => {
-            this.router.navigateByUrl('/estados');
-          },
-          error: (err) => {
-            console.log('Erro ao Incluir' + JSON.stringify(err));
+      // operacao obtem o retorno de um observable de insert ou update
+      const operacao = estado.id == null
+        ? this.estadoService.insert(estado)
+        : this.estadoService.update(estado);
+
+      // realiza a operacao e trata a resposta.
+      operacao.subscribe({
+        next: () => this.router.navigateByUrl('/estados'),
+        error: (error: HttpErrorResponse) => {
+          console.log('Erro ao salvar' + JSON.stringify(error));
+          this.tratarErros(error);
+        }
+      });
+    }
+  }
+
+  tratarErros(error: HttpErrorResponse) {
+    if (error.status === 400) {
+      // erros relacionados a campos
+      if (error.error?.errors) {
+        error.error.errors.forEach((validationError: any) => {
+          // obs: o fieldName tem o mesmo valor da api
+          const formControl = this.formGroup.get(validationError.fieldName);
+          console.log(validationError);
+          if (formControl) {
+            console.log(formControl);
+            formControl.setErrors({ apiError: validationError.message });
           }
         });
-      } else {
-        this.estadoService.update(estado).subscribe({
-          next: (estadoAlterado) => {
-            this.router.navigateByUrl('/estados');
-          },
-          error: (err) => {
-            console.log('Erro ao Editar' + JSON.stringify(err));
-          }
-        });
-      }
+      };
+    } else if (error.status < 400) {
+      // Erro genérico não relacionado a um campo específico.
+      alert(error.error?.message || 'Erro genérico no envio do formulário.');
+    } else if (error.status >= 500) {
+      alert('Erro interno do servidor. Por favor, tente novamente mais tarde.');
     }
   }
 
@@ -101,14 +117,15 @@ export class EstadoFormComponent {
     if (!errors) {
       return '';
     }
-    // retorna a mensagem de erro espesifica
+    // retorna a mensagem de erro
     for (const errorName in errors) {
-      if (errors.hasOwnProperty(errorName) && this.errorMessages[controlName][errorName]) {
+      if (errors.hasOwnProperty(errorName) &&
+        this.errorMessages[controlName][errorName]) {
         return this.errorMessages[controlName][errorName];
       }
     }
-    // caso nao encontre o erro
-    return 'Erro não mapeado (entre em contato com o desenvolvedor)'
+
+    return 'Erro não mapeado (entre em contato com o desenvolvedor)';
   }
 
 }
